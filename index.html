@@ -14,12 +14,27 @@
             margin: 0;
             overflow: hidden;
         }
+    
         #controls {
             position: absolute;
             top: 10px;
             left: 10px;
             z-index: 10;
         }
+    
+        button {
+            font-size: 20px;
+            padding: 16px 30px;
+            margin: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    
+        input[type="file"] {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+    
         #progressContainer {
             position: absolute;
             bottom: 10px;
@@ -32,18 +47,19 @@
             justify-content: center;
             color: white;
         }
+    
         #progressBar {
             flex-grow: 1;
             margin: 0 10px;
         }
-    </style>
+    </style>    
 </head>
 <body>
     <div id="controls">
-        <input type="file" id="fileInput">
+        <input type="file" id="fileInput" accept=".bvh">
         <button id="playButton">再生</button>
         <button id="pauseButton">停止</button>
-        <h3>停止中に「.」でコマ送り,「,」でコマ戻りします。</h3>
+        <h3>停止中に「.」でコマ送り,「,」でコマ戻り</h3>
     </div>
     
     <div id="progressContainer">
