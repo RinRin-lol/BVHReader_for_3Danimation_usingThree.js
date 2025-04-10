@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>three.jsを用いてBVHファイルを読み込んで3D表示する方法EVO</title>
+  <title>three.jsを用いてBVHファイルを読み込んで3D表示する方法</title>
   <style>
     body {
       color: #fff;
@@ -28,6 +28,9 @@
       margin: 5px;
       border-radius: 10px;
       cursor: pointer;
+      touch-action: manipulation; /* 追加: スマホタッチ対応 */
+      z-index: 20;                /* 追加: Three.js上に重ねる */
+      position: relative;         /* 追加 */
     }
 
     .upload-label {
@@ -37,6 +40,9 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 20px;
+      touch-action: manipulation; /* 追加: スマホタッチ対応 */
+      z-index: 20;                /* 追加 */
+      position: relative;         /* 追加 */
     }
 
     input[type="file"] {
@@ -79,7 +85,7 @@
     <br>
     <button id="playButton">再生</button>
     <button id="pauseButton">停止</button>
-    <h3>停止中に「.」でコマ送り,「,」でコマ戻りします。</h3>
+    <h3>停止中に「.」でコマ送り,「,」でコマ戻り</h3>
   </div>
 
   <div id="progressContainer">
@@ -192,18 +198,19 @@
       camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
       camera.position.set(0, 200, 400);
 
-      controls = new THREE.OrbitControls(camera, document.body);
-      controls.minDistance = 300;
-      controls.maxDistance = 700;
-
-      scene = new THREE.Scene();
-      scene.add(new THREE.GridHelper(200, 10));
-
       renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setClearColor(0x222222);
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
+
+      controls = new THREE.OrbitControls(camera, renderer.domElement); // 変更: document.body → renderer.domElement
+
+      controls.minDistance = 300;
+      controls.maxDistance = 700;
+
+      scene = new THREE.Scene();
+      scene.add(new THREE.GridHelper(200, 10));
 
       window.addEventListener('resize', onWindowResize);
     }
